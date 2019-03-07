@@ -1,10 +1,12 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 var db = require('./db/mongo');
 var movies = require('./handlers/movies');
 
 db.Init();
 var api = express();
+api.use(bodyParser.json());
 
 api.get('/api/v1/movies', movies.getAllMovies);
 api.post('/api/v1/movies', movies.addMovie);
