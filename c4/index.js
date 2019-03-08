@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 var db = require('./db/mongo');
-var movies = require('./handlers/movies');
+var movies = require('./handlers/movies_handler');
 
 db.Init();
 var api = express();

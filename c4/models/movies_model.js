@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var Movies = mongoose.model(
+var MoviesModel = mongoose.model(
     'movies', 
     mongoose.Schema({
         name: String,
@@ -13,7 +13,7 @@ var Movies = mongoose.model(
 );
 
 var addMovie = (data, cb) => {
-    var movie = new Movies(data);
+    var movie = new MoviesModel(data);
     movie.save((err) => {
         if(err) {
             cb(err);
@@ -23,7 +23,7 @@ var addMovie = (data, cb) => {
 }
 
 var getAllMovies = (cb) => {
-    Movies.find((err, res) => {
+    MoviesModel.find((err, res) => {
         if(err) {
             cb(err, null);
         }
@@ -32,7 +32,7 @@ var getAllMovies = (cb) => {
 }
 
 var getSingleMovie = (id, cb) => {
-    Movies.findById(id, (err, res) => {
+    MoviesModel.findById(id, (err, res) => {
         if(err) {
             cb(err, null);
         }
@@ -40,8 +40,28 @@ var getSingleMovie = (id, cb) => {
     });
 }
 
+var updateMovie = (id, data, cb) => {
+    MoviesModel.updateOne({_id: id}, data, (err) => {
+        if(err){
+            cb(err);
+        }
+        cb(null);
+    })
+}
+
+var deleteMovie = (id, cb) => {
+    MoviesModel.deleteOne({_id: id}, (err) => {
+        if(err){
+            cb(err);
+        }
+        cb(null);
+    });
+}
+
 module.exports = {
     addMovie,
     getAllMovies,
-    getSingleMovie
+    getSingleMovie,
+    updateMovie,
+    deleteMovie
 }
