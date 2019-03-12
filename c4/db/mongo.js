@@ -1,10 +1,11 @@
 var mongoose = require('mongoose');
+var config = require('../config/index');
 
-const dbname = "movies";
-const host = "127.0.0.1";
-const port = "27017";
-const username = "";
-const password = "";
+var dbname = config.get('db').dbname;
+var host = config.get('db').host;
+var port = config.get('db').port;
+var username = config.get('db').username;
+var password = config.get('db').pass;
 
 var dsn = `mongodb://${host}:${port}/${dbname}`; // data source name
 

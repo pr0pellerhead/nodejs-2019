@@ -1,4 +1,6 @@
+const valide = require('node-input-validator');
 var moviesModel = require('../models/movies_model');
+var moviesValidator = require('../validators/movies_validator');
 
 var getAllMovies = (req, res) => {
     moviesModel.getAllMovies((err, data) => {
@@ -10,11 +12,18 @@ var getAllMovies = (req, res) => {
 };
 
 var addMovie = (req, res) => {
-    moviesModel.addMovie(req.body, (err) => {
-        if(err) {
-            return res.status(400).send('Bad Request');
+    let v = new valide(req.body, moviesValidator.schema);
+    v.check().then(matched => {
+        if(matched){
+            moviesModel.addMovie(req.body, (err) => {
+                if(err) {
+                    return res.status(400).send('Bad Request');
+                }
+                return res.status(201).send('Created');
+            });
+        } else {
+            return res.status(400).send(v.errors); 
         }
-        return res.status(201).send('Created');
     });
 };
 

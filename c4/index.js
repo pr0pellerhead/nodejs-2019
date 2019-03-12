@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+var config = require('./config/index');
 var db = require('./db/mongo');
 var movies = require('./handlers/movies_handler');
 
