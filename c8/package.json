@@ -12,6 +12,7 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.0",
     "mongoose": "^5.4.19",
     "node-input-validator": "^3.1.0"
   }

@@ -4,6 +4,12 @@ var register = {
     password: 'required|minLength:8'
 }
 
+var login = {
+    email: 'required|email',
+    password: 'required|minLength:8'
+}
+
 module.exports = {
-    register
+    register,
+    login
 }
