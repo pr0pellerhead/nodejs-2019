@@ -8,12 +8,15 @@ var user = require('./handlers/user');
 mongo.init();
 var api = express();
 api.use(bodyParser.json())
+api.use(express.static('www'));
 api.use(expressJWT({
         secret: 'e982u31=08uyz09823ye-972y13e37fg0837'
     }).unless({
         path: [
             '/api/v1/register',
-            '/api/v1/login'
+            '/api/v1/login',
+            '/index.html',
+            '/'
         ]
     })
 );

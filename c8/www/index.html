@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input class="email" placeholder="email"/>
+    <br/>
+    <input type="password" class="password" placeholder="password"/>
+    <br/>
+    <br/>
+    <button class="btn-login">Log in</button>
+    <br/>
+    <br/>
+    <button class="btn-test">Test Call</button>
+
+    <script>
+        var TOKEN = '';
+        var email = document.querySelector('.email');
+        var password = document.querySelector('.password');
+        var btnLogin = document.querySelector('.btn-login');
+        var btnTest = document.querySelector('.btn-test');
+
+        btnLogin.addEventListener('click', (e) => {
+            var data = {
+                email: email.value,
+                password: password.value
+            };
+
+            fetch('/api/v1/login', {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify(data)
+            }).then(res => {
+                return res.text();
+            }).then(output => {
+                console.log(output);
+                TOKEN = output;
+            }).catch(err => {
+                console.error(err);
+            });
+        });
+
+        btnTest.addEventListener('click', (e) => {
+            fetch('/api/v1/token-test', {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${TOKEN}`,
+                },
+                method: "GET"
+            }).then(res => {
+                return res.text();
+            }).then(output => {
+                console.log(output);
+            }).catch(err => {
+                console.error(err);
+            });
+        });
+    </script>
+</body>
+</html>
